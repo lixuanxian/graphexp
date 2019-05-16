@@ -191,19 +191,18 @@ var graphioGremlin = (function(){
 
 	function send_to_server(gremlin_query,query_type,active_node,message, callback){
 
-		let server_address = $('#server_address').val();
-		let server_port = $('#server_port').val();
-		let addSSL =  $("#server_ssl").prop( "checked") ? true : false;
+		let serverAddress = $('#server_address').val();
+		let serverPort = $('#server_port').val();
+		let addPort = String(serverPort).trim() === '' ? "" :`:${serverPort}`
+		let addSSL = $("#server_ssl").prop( "checked") ? "s" : "";
 		let COMMUNICATION_PROTOCOL = $('#server_protocol').val();
 			if (COMMUNICATION_PROTOCOL == 'REST'){
-				let server_url = `http${addSSL}://${server_address}:${server_port}`;
+				let server_url = `http${addSSL}://${serverAddress}${addPort}`;
 				run_ajax_request(gremlin_query,server_url,query_type,active_node,message,callback);
-			}
-			else if (COMMUNICATION_PROTOCOL == 'websocket'){
-				let server_url = `ws${addSSL}://${server_address}:${server_port}/gremlin`
+			}else if (COMMUNICATION_PROTOCOL == 'websocket'){
+				let server_url = `ws${addSSL}://${serverAddress}${addPort}/gremlin`
 				run_websocket_request(gremlin_query,server_url,query_type,active_node,message,callback);
-			}
-			else {
+			}else {
 				console.log('Bad communication protocol. Check configuration file. Accept "REST" or "websocket" .')
 			}
 				
