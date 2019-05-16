@@ -193,7 +193,7 @@ var graphioGremlin = (function(){
 
 		let server_address = $('#server_address').val();
 		let server_port = $('#server_port').val();
-		let addSSL = (/^https/ig).test(window.location.protocol) ? "s":"";
+		let addSSL =  $("#server_ssl").prop( "checked") ? true : false;
 		let COMMUNICATION_PROTOCOL = $('#server_protocol').val();
 			if (COMMUNICATION_PROTOCOL == 'REST'){
 				let server_url = `http${addSSL}://${server_address}:${server_port}`;

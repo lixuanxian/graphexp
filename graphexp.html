@@ -249,7 +249,7 @@
 									<div class="form-group">
 										<label for="server_port">Server Port</label>
 										<input type="text" class="form-control" name="server_port" id="server_port"
-											placeholder="Server port 8182" value="8182">
+											placeholder="8182" value="">
 									</div>
 									<div class="form-group">
 										<label for="server_protocol">Protocol:</label>
@@ -259,6 +259,13 @@
 											<option value="REST">REST</option>
 										</select>
 									</div>
+
+									<div class="checkbox">
+										<label>
+										  <input name="server_ssl" id="server_ssl" type="checkbox"> SSL
+										</label>
+									  </div>
+
 									<div class="form-group">
 										<label for="communication_method">Gremlin version:</label>
 										<select class="form-control form-control-lg" name="communication_method"
@@ -285,12 +292,9 @@
 			
 			if (!(/localhost/ig).test(window.location.host)) {
 				$('#server_address').val("gremlin.kineviz.com");
+				$("#server_ssl").prop( "checked", true );
 			}
-
-			if ((/^https/ig).test(window.location.protocol)) {
-				$('#server_port').val(443);
-			}
-
+		 
 			init_property_bar();
 			// Create the graph canvas in the chosen div element
 			graph_viz.init("#main");
