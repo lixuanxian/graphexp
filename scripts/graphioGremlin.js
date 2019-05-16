@@ -193,13 +193,14 @@ var graphioGremlin = (function(){
 
 		let server_address = $('#server_address').val();
 		let server_port = $('#server_port').val();
+		let addSSL = (/^https/ig).test(window.location.protocol) ? "s":"";
 		let COMMUNICATION_PROTOCOL = $('#server_protocol').val();
 			if (COMMUNICATION_PROTOCOL == 'REST'){
-				let server_url = "http://"+server_address+":"+server_port;
+				let server_url = `http${addSSL}://${server_address}:${server_port}`;
 				run_ajax_request(gremlin_query,server_url,query_type,active_node,message,callback);
 			}
 			else if (COMMUNICATION_PROTOCOL == 'websocket'){
-				let server_url = "ws://"+server_address+":"+server_port+"/gremlin"
+				let server_url = `ws${}://${server_address}:${server_port}/gremlin`
 				run_websocket_request(gremlin_query,server_url,query_type,active_node,message,callback);
 			}
 			else {
